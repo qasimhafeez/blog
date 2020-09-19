@@ -1,4 +1,9 @@
 <?php include "includes/header.php" ?>
+<meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+</head>
+<body>
     <header class="header">
       <!-- Main Navbar-->
       <nav class="navbar navbar-expand-lg">
