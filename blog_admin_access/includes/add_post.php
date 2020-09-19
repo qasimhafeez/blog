@@ -8,12 +8,16 @@
         
         $post_image = $_FILES["post_image"]["name"];
         $post_image_temp = $_FILES["post_image"]["tmp_name"];
+
+        $post_alt_image = $_FILES["post_alt_image"]["name"];
+        $post_alt_image_temp = $_FILES["post_alt_image"]["tmp_name"];
         
         $post_tags = $_POST["post_tags"];
         $post_content = $_POST["post_content"];
         $post_date = date("d-m-y");
         
         move_uploaded_file($post_image_temp, "../images/$post_image");
+        move_uploaded_file($post_alt_image_temp, "../images/$post_alt_image");
         
         
         $query = "INSERT INTO posts(post_cat_id, post_title, post_author, post_date, post_image,
@@ -75,6 +79,10 @@
     <div class="form-group">
         <label for="post_image">Post Image</label>
         <input type="file" name="post_image">
+    </div>
+    <div class="form-group">
+        <label for="post_alt_image">Post Alt Image</label>
+        <input type="file" name="post_alt_image">
     </div>
     
     <div class="form-group">
