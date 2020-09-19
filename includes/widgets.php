@@ -17,19 +17,30 @@
   </header>
   <div class="blog-posts">
   <?php 
-  
+  $query = "SELECT * from posts ORDER BY post_date DESC LIMIT 3";
+  $result = mysqli_query($connection, $query);
+
+  while($row = mysqli_fetch_assoc($result))
+  {
+    
+    $post_id = $row['post_id'];
+    $post_author = $row['post_author'];
+    $post_title = $row['post_title'];
+    $post_title = $row['post_title'];
+
   ?>
     <a href="#">
       <div class="item d-flex align-items-center">
         <div class="image"><img src="img/small-thumbnail-3.jpg" alt="..." class="img-fluid"></div>
-        <div class="title"><strong>Alberto Savoia Can Teach You About</strong>
+        <div class="title"><strong><?php echo $post_title ?></strong>
           <div class="d-flex align-items-center">
             <div class="views"><i class="icon-eye"></i> 500</div>
-            <div class="comments"><i class="icon-comment"></i>12</div>
+            <div class="comments"><i class="icon-comment"></i></div>
           </div>
         </div>
       </div>
     </a>
+  <?php } ?>
   </div>
 </div>
 <!-- Widget [Categories Widget]-->
