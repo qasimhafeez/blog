@@ -80,7 +80,7 @@
                 $count = ceil($count / $posts_per_page);
 
 
-                $query = "select * from posts LIMIT $page_1,$posts_per_page";
+                $query = "SELECT * from posts ORDER BY post_date DESC LIMIT $page_1,$posts_per_page";
                 $result = mysqli_query($connection, $query);
                 
                 while($row = mysqli_fetch_assoc($result))

@@ -73,7 +73,7 @@
         </thead>
         <tbody>
         <?php
-            $query = "SELECT * from posts";
+            $query = "SELECT * from posts ORDER BY post_date DESC";
             $result = mysqli_query($connection, $query);
 
             while($row = mysqli_fetch_assoc($result))
