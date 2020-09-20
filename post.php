@@ -5,6 +5,13 @@
   <meta name="robots" content="all,follow">
 </head>
 <body>
+<?php
+    if(isset($_GET['post_title']) && $_GET['p_id'])
+    {
+        $post_title = $_GET['post_title'];
+        $post_id = $_GET['p_id'];
+    }
+?>
     <header class="header">
       <!-- Main Navbar-->
       <nav class="navbar navbar-expand-lg">
@@ -66,6 +73,9 @@
                   <a href="#" class="tag">#Financial</a>
                   <a href="#" class="tag">#Economy</a>
                 </div>
+
+
+
                 <!-- <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row"><a href="#" class="prev-post text-left d-flex align-items-center">
                     <div class="icon prev"><i class="fa fa-angle-left"></i></div>
                     <div class="text"><strong class="text-primary">Previous Post </strong>
@@ -75,61 +85,102 @@
                       <h6>I Bought a Wedding Dress.</h6>
                     </div>
                     <div class="icon next"><i class="fa fa-angle-right">   </i></div></a></div> -->
+
+<?php
+  $query = "SELECT post_comment_count from posts WHERE post_id = {$post_id}";
+  $comments = mysqli_query($connection, $query);
+  $row = mysqli_fetch_assoc($comments);
+  $comments = $row["post_comment_count"];
+?>
+
                 <div class="post-comments">
                   <header>
-                    <h3 class="h6">Post Comments<span class="no-of-comments">(3)</span></h3>
+                    <h3 class="h6">Comments<span class="no-of-comments">(<?php echo $comments ?>)</span></h3>
                   </header>
+<?php
+    global $connection;  
+    $query = "SELECT * from comments WHERE cmt_post_id = $post_id ";
+    $query .= "AND cmt_status = 'approved' ";
+    $query .= "ORDER BY cmt_id DESC ";
+    
+    $get_cmt = mysqli_query($connection, $query);
+    if(!$get_cmt)
+    {
+        die("There is a problem in the Command ".mysqli_error($connection));    
+    }
+
+    while($row = mysqli_fetch_assoc($get_cmt))
+    {
+        $cmt_date = $row["cmt_date"];
+        $cmt_content = $row["cmt_content"];
+        $cmt_author = $row["cmt_author"];
+?>
                   <div class="comment">
                     <div class="comment-header d-flex justify-content-between">
                       <div class="user d-flex align-items-center">
                         <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="title"><strong>Jabi Hernandiz</strong><span class="date">May 2016</span></div>
+                        <div class="title"><strong><?php echo $cmt_author ?></strong><span class="date"><?php echo $cmt_date ?></span></div>
                       </div>
                     </div>
                     <div class="comment-body">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                      <p><?php echo $cmt_content ?></p>
                     </div>
                   </div>
-                  <div class="comment">
-                    <div class="comment-header d-flex justify-content-between">
-                      <div class="user d-flex align-items-center">
-                        <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="title"><strong>Nikolas</strong><span class="date">May 2016</span></div>
-                      </div>
-                    </div>
-                    <div class="comment-body">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                    </div>
-                  </div>
-                  <div class="comment">
-                    <div class="comment-header d-flex justify-content-between">
-                      <div class="user d-flex align-items-center">
-                        <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="title"><strong>John Doe</strong><span class="date">May 2016</span></div>
-                      </div>
-                    </div>
-                    <div class="comment-body">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                    </div>
-                  </div>
+  <?php } ?>
                 </div>
+
+
+<!-- Create Comment -->
+
+<?php
+    if(isset($_POST["create_comment"]))
+    {
+        $p_id = $_GET['p_id'];
+        $cmt_author = $_POST['cmt_author'];
+        $cmt_email = $_POST['cmt_email'];
+        $cmt_content = $_POST['cmt_content'];
+        
+        if(!empty($cmt_author) && !empty($cmt_email) && !empty($cmt_content))
+        {
+            $query = "INSERT INTO comments (cmt_post_id, cmt_author, cmt_email, cmt_content, cmt_status,
+                        cmt_date) ";
+            $query .= "VALUES ($p_id, '{$cmt_author}', '{$cmt_email}', '{$cmt_content}', 'unapproved', now())";
+
+            $cmt_query = mysqli_query($connection, $query);
+
+            $query = "UPDATE posts set post_comment_count = post_comment_count + 1 ";
+            $query .= "WHERE post_id = $p_id ";
+            $update_cmt_count = mysqli_query($connection, $query);
+
+        }
+        else
+        {
+            echo "<script>alert('Fields cannot be empty!')</script>";
+        }
+                                
+        
+        
+    }
+
+?>
+
                 <div class="add-comment">
                   <header>
                     <h3 class="h6">Leave a reply</h3>
                   </header>
-                  <form action="#" class="commenting-form">
+                  <form method="post" action="" class="commenting-form">
                     <div class="row">
                       <div class="form-group col-md-6">
-                        <input type="text" name="username" id="username" placeholder="Name" class="form-control">
+                        <input type="text" name="cmt_author" id="cmt_author" placeholder="Name" class="form-control">
                       </div>
                       <div class="form-group col-md-6">
-                        <input type="email" name="username" id="useremail" placeholder="Email Address (will not be published)" class="form-control">
+                        <input type="email" name="cmt_email" id="cmt_email" placeholder="Email Address (will not be published)" class="form-control">
                       </div>
                       <div class="form-group col-md-12">
-                        <textarea name="usercomment" id="usercomment" placeholder="Type your comment" class="form-control"></textarea>
+                        <textarea name="cmt_content" id="cmt_content" placeholder="Type your comment" class="form-control"></textarea>
                       </div>
                       <div class="form-group col-md-12">
-                        <button type="submit" class="btn btn-secondary">Submit Comment</button>
+                        <button type="submit" name="create_comment" class="btn btn-secondary">Submit Comment</button>
                       </div>
                     </div>
                   </form>

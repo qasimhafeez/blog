@@ -99,12 +99,12 @@
                         
                 ?>
               <div class="post col-xl-6">
-                <div class="post-thumbnail"><a href="post.html"><img src="img/blog-post-1.jpeg" alt="..." class="img-fluid"></a></div>
+                <div class="post-thumbnail"><a href="post.php?p_id=<?php echo $post_id; ?>&post_title=<?php echo $post_title; ?>"><img src="img/blog-post-1.jpeg" alt="..." class="img-fluid"></a></div>
                 <div class="post-details">
                   <div class="post-meta d-flex justify-content-between">
                     <div class="date meta-last"><?php echo $post_date; ?></div>
                     <div class="category"><a href="#">Business</a></div>
-                  </div><a href="post.html">
+                  </div><a href="post.php?p_id=<?php echo $post_id; ?>&post_title=<?php echo $post_title; ?>">
                     <h3 class="h4">Alberto Savoia Can Teach You About Interior</h3></a>
                   <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
                   <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
