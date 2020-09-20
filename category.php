@@ -1,5 +1,6 @@
 <?php include "includes/header.php" ?>
-<meta name="description" content="">
+<meta name="description" content="lurning hub blog">
+<meta name="keywords" content="blog, education, learning hub, learning, lurning">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
 </head>

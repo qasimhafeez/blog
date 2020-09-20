@@ -2,6 +2,7 @@
     if(isset($_POST["create_post"]))
     {
         $post_title = $_POST["post_title"];
+        $post_desc = $_POST["post_desc"];
         $post_author = $_POST["post_author"];
         $post_category_id = $_POST["post_category"];
         $post_status = $_POST["post_status"];
@@ -20,10 +21,9 @@
         move_uploaded_file($post_alt_image_temp, "../images/$post_alt_image");
         
         
-        $query = "INSERT INTO posts(post_cat_id, post_title, post_author, post_date, post_image,
-                    post_content, post_tags, post_status) ";
-        $query .= "VALUES({$post_category_id}, '{$post_title}', '{$post_author}', now(),
-                    '{$post_image}', '{$post_content}', '{$post_tags}', '{$post_status}')";
+        $query = "INSERT INTO posts(post_cat_id, post_title, post_desc, post_author, post_date, post_image, post_img_alt, post_content, post_tags, post_status) ";
+        $query .= "VALUES({$post_category_id}, '{$post_title}', '{$post_desc}', '{$post_author}', now(),
+                    '{$post_image}', '{$post_alt_image}', '{$post_content}', '{$post_tags}', '{$post_status}')";
         
         $result = mysqli_query($connection, $query);
         
@@ -88,6 +88,11 @@
     <div class="form-group">
         <label for="post_tags">Post Tags</label>
         <input type="text" class="form-control" name="post_tags">
+    </div>
+
+    <div class="form-group">
+        <label for="post_desc">Post Description</label>
+        <input type="text" class="form-control" name="post_desc">
     </div>
         
     <div class="form-group">

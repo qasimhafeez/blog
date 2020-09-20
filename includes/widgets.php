@@ -29,7 +29,7 @@
     $post_comment_count = $row['post_comment_count'];
 
   ?>
-    <a href="#">
+    <a href="post.php?p_id=<?php echo $post_id; ?>&post_title=<?php echo $post_title; ?>">
       <div class="item d-flex align-items-center">
         <div class="image"><img src="img/small-thumbnail-3.jpg" alt="..." class="img-fluid"></div>
         <div class="title"><strong><?php echo $post_title ?></strong>

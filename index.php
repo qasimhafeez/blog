@@ -1,5 +1,6 @@
 <?php include "includes/header.php" ?>
-<meta name="description" content="">
+<meta name="description" content="lurning hub blog">
+<meta name="keywords" content="blog, education, learning hub, learning, lurning">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
 </head>
@@ -91,6 +92,7 @@
                     $post_author = $row['post_author'];
                     $post_date = $row['post_date'];
                     $post_image = $row['post_image'];
+                    $post_img_alt = $row['post_img_alt'];
                     $post_content = substr($row['post_content'], 0, 225);
                     $post_status = $row['post_status'];
                     
@@ -99,7 +101,7 @@
                         
                 ?>
               <div class="post col-xl-6">
-                <div class="post-thumbnail"><a href="post.php?p_id=<?php echo $post_id; ?>&post_title=<?php echo $post_title; ?>"><img src="img/blog-post-1.jpeg" alt="..." class="img-fluid"></a></div>
+                <div class="post-thumbnail"><a href="post.php?p_id=<?php echo $post_id; ?>&post_title=<?php echo $post_title; ?>"><img src="images/<?php echo $post_img_alt ?>" alt="<?php echo $post_img_alt ?>" class="img-fluid"></a></div>
                 <div class="post-details">
                   <div class="post-meta d-flex justify-content-between">
                     <div class="date meta-last"><?php echo $post_date; ?></div>
