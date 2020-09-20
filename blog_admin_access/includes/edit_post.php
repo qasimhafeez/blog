@@ -87,11 +87,10 @@
         
 //        echo "<p class='bg-success'>Post has been Updated! " . " " . "<a href='../post.php?p_id=$p_id'>View Post</a></p>";
         
-        header("Location: ../posts.php");
+        header("Location: posts.php");
         
     }
 ?>
-   
 
 <form action="" method="post" enctype="multipart/form-data">
     <div class="form-group">

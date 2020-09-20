@@ -41,6 +41,19 @@
         <div class="container">
           <!-- Navbar Brand -->
           <?php include "includes/logo.php" ?>
+          <div id="navbarcollapse" class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+              <!-- <li class="nav-item"><a href="index.html" class="nav-link ">Home</a>
+              </li>
+              </li>
+              <li class="nav-item"><a href="post.html" class="nav-link ">Post</a>
+              </li>
+              <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
+              </li> -->
+            </ul>
+            <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
+            <ul class="langs navbar-text"><a href="login.php" class="active">Login</a></ul>
+          </div>
     </header>
     <div class="container">
       <div class="row">

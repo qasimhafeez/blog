@@ -17,7 +17,7 @@
   </header>
   <div class="blog-posts">
   <?php 
-  $query = "SELECT * from posts ORDER BY post_date DESC LIMIT 3";
+  $query = "SELECT * from posts ORDER BY post_id DESC LIMIT 3";
   $result = mysqli_query($connection, $query);
 
   while($row = mysqli_fetch_assoc($result))
@@ -26,12 +26,13 @@
     $post_id = $row['post_id'];
     $post_author = $row['post_author'];
     $post_title = $row['post_title'];
+    $post_img_alt = $row['post_img_alt'];
     $post_comment_count = $row['post_comment_count'];
 
   ?>
     <a href="post.php?p_id=<?php echo $post_id; ?>&post_title=<?php echo $post_title; ?>">
       <div class="item d-flex align-items-center">
-        <div class="image"><img src="img/small-thumbnail-3.jpg" alt="..." class="img-fluid"></div>
+        <div class="image"><img src="images/<?php echo $post_img_alt ?>" alt="<?php echo $post_img_alt ?>" class="img-fluid"></div>
         <div class="title"><strong><?php echo $post_title ?></strong>
           <div class="d-flex align-items-center">
             <!-- <div class="views"><i class="icon-eye"></i> 500</div> -->

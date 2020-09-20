@@ -44,7 +44,7 @@
             $_SESSION['lastname'] = $u_lastname;
             $_SESSION['user_role'] = $u_role;
             
-            header("Location: ../blog_admin_access");
+            header("Location: ../blog_admin_access/index.php");
         }
         else
         {

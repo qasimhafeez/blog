@@ -28,18 +28,18 @@
           <?php include "includes/logo.php" ?>
           <!-- Navbar Menu -->
           <div id="navbarcollapse" class="collapse navbar-collapse">
-            <!-- <ul class="navbar-nav ml-auto">
-              <li class="nav-item"><a href="index.html" class="nav-link ">Home</a>
+            <ul class="navbar-nav ml-auto">
+              <!-- <li class="nav-item"><a href="index.html" class="nav-link ">Home</a>
               </li>
               </li>
               <li class="nav-item"><a href="post.html" class="nav-link ">Post</a>
               </li>
               <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
-              </li>
+              </li> -->
             </ul>
             <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
-            <ul class="langs navbar-text"><a href="#" class="active">EN</a><span>           </span><a href="#">ES</a></ul>
-          </div> -->
+            <ul class="langs navbar-text"><a href="login.php" class="active">Login</a></ul>
+          </div>
         </div>
       </nav>
     </header>
@@ -82,16 +82,19 @@
                 $count = ceil($count / $posts_per_page);
 
 
-                $query = "SELECT * from posts ORDER BY post_date DESC LIMIT $page_1,$posts_per_page";
+                $query = "SELECT * from posts ORDER BY post_id DESC LIMIT $page_1,$posts_per_page";
                 $result = mysqli_query($connection, $query);
                 
                 while($row = mysqli_fetch_assoc($result))
                 {
                     $post_id = $row['post_id'];
+                    $post_cat_id = $row['post_cat_id'];
                     $post_title = $row['post_title'];
+                    $post_desc = $row['post_desc'];
                     $post_author = $row['post_author'];
                     $post_date = $row['post_date'];
                     $post_image = $row['post_image'];
+                    $post_comment_count = $row['post_comment_count'];
                     $post_img_alt = $row['post_img_alt'];
                     $post_content = substr($row['post_content'], 0, 225);
                     $post_status = $row['post_status'];
@@ -105,15 +108,22 @@
                 <div class="post-details">
                   <div class="post-meta d-flex justify-content-between">
                     <div class="date meta-last"><?php echo $post_date; ?></div>
-                    <div class="category"><a href="#">Business</a></div>
+                    <div class="category"><a href="#">
+                    <?php 
+                    global $connection;
+                    $cat_query = "SELECT * from categories WHERE cat_id = {$post_cat_id}";
+                    $cat_result = mysqli_query($connection, $cat_query);
+                    $category = mysqli_fetch_assoc($cat_result);
+                    ?>
+                    <?php echo $category["cat_title"] ?></a></div>
                   </div><a href="post.php?p_id=<?php echo $post_id; ?>&post_title=<?php echo $post_title; ?>">
-                    <h3 class="h4">Alberto Savoia Can Teach You About Interior</h3></a>
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                    <h3 class="h4"><?php echo $post_title; ?></h3></a>
+                  <p class="text-muted"><?php echo $post_desc; ?></p>
                   <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
-                      <div class="avatar"><img src="img/avatar-3.jpg" alt="..." class="img-fluid"></div>
-                      <div class="title"><span>John Doe</span></div></a>
-                    <div class="date"><i class="icon-clock"></i> 2 months ago</div>
-                    <div class="comments meta-last"><i class="icon-comment"></i>12</div>
+                      <!-- <div class="avatar"><img src="img/avatar-3.jpg" alt="..." class="img-fluid"></div> -->
+                      <div class="title"><span><?php echo $post_author; ?></span></div></a>
+                    <div class="date"><i class="icon-clock"></i><?php echo $post_date ?></div>
+                    <div class="comments meta-last"><i class="icon-comment"></i><?php echo $post_comment_count ?></div>
                   </footer>
                 </div>
               </div>
