@@ -8,8 +8,15 @@
 
 </div>
 <form name="searchForm" id="searchForm" action="/search.php" class="form-inline my-2 my-lg-0" method="post">
-<span><i class="fa fa-search" aria-hidden="true"></i></span>
-<input class="form-control mr-sm-2 topsearch" type="text" autocomplete="off" name="inputsearch" placeholder="Search" aria-label="Search">
+<div class="input-group">
+<!-- <span style="
+    margin-left: 50px;
+"><i class="fa fa-search" aria-hidden="true" style="
+    margin-left: 20px;
+"></i></span> -->
+<input class="form-control mr-sm-2 topsearch" type="text" autocomplete="off" name="inputsearch" placeholder="Search" aria-label="Search" style="
+    magin-left: 29px;
+"></div>
 <div class="search-result" style="display: block;"></div>
 </form>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
